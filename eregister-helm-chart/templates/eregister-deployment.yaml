@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: eregister
+  namespace: ingress-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eregister
+  template:
+    metadata:
+      labels:
+        app: eregister
+    spec:
+      hostAliases:
+      - ip: "35.235.110.171"
+        hostnames:
+        - "dbserver"
+      - ip: "10.104.241.3"
+        hostnames:
+        - "redis-server"
+      containers:
+      - name: eregister
+        imagePullPolicy: Always
+        image: us-west2-docker.pkg.dev/prime-chess-368907/docker-repo/eregister
+        ports:
+        - containerPort: 9998
+        - containerPort: 9997
+#        volumeMounts:
+#        - mountPath: /var/log/eregister
+#          name: test-volume
+#      volumes:
+#      - name: test-volume
+#        hostPath:
+#          path: /home/hung/data/docker/docker-data/log/eregister
+#          type: Directory
