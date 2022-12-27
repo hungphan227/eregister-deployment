@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: eregister-user-service
+  namespace: ingress-nginx
+spec:
+  selector:
+    app: eregister-user-service
+  ports:
+  - name: http-port
+    protocol: TCP
+    targetPort: 10000
+    port: 10000
